@@ -8,6 +8,12 @@
 	"icon": "carrot",
 	"description": "An interactive block with the Interactivity API",
 	"example": {},
+	"attributes": {
+		"meals": {
+			"type": "array",
+			"default": []
+		}
+	},
 	"supports": {
 		"interactivity": true
 	},
