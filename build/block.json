@@ -5,9 +5,15 @@
   "version": "0.1.0",
   "title": "Swiggy Plugin",
   "category": "widgets",
-  "icon": "media-interactive",
+  "icon": "carrot",
   "description": "An interactive block with the Interactivity API",
   "example": {},
+  "attributes": {
+    "meals": {
+      "type": "array",
+      "default": []
+    }
+  },
   "supports": {
     "interactivity": true
   },

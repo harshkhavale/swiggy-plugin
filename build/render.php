@@ -10,30 +10,27 @@
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
 
-// Generate unique id for aria-controls.
-$unique_id = wp_unique_id( 'p-' );
+$unique_id = wp_unique_id('p-');
+$meals = isset($attributes['meals']) ? $attributes['meals'] : [];
 ?>
 
 <div
-	<?php echo get_block_wrapper_attributes(); ?>
-	data-wp-interactive="create-block"
-	<?php echo wp_interactivity_data_wp_context( array( 'isOpen' => false ) ); ?>
-	data-wp-watch="callbacks.logIsOpen"
+    <?php echo get_block_wrapper_attributes(); ?>
+    data-wp-interactive="create-block"
+    id="<?php echo esc_attr($unique_id); ?>" 
 >
-	<button
-		data-wp-on--click="actions.toggle"
-		data-wp-bind--aria-expanded="context.isOpen"
-		aria-controls="<?php echo esc_attr( $unique_id ); ?>"
-	>
-		<?php esc_html_e( 'Toggle', 'swiggy-plugin' ); ?>
-	</button>
-
-	<p
-		id="<?php echo esc_attr( $unique_id ); ?>"
-		data-wp-bind--hidden="!context.isOpen"
-	>
-		<?php
-			esc_html_e( 'Swiggy Plugin - hello from an interactive block!', 'swiggy-plugin' );
-		?>
-	</p>
+    <div class="food-menu">
+        <div class="food-items">
+            <?php if (!empty($meals)): ?>
+                <?php foreach ($meals as $meal): ?>
+                    <div class="food-item">
+                        <h3><?php echo esc_html($meal['strMeal']); ?></h3>
+                        <img src="<?php echo esc_url($meal['strMealThumb']); ?>" alt="<?php echo esc_attr($meal['strMeal']); ?>" />
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <h1><?php esc_html_e('No meals found.', 'your-text-domain'); ?></h1>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
