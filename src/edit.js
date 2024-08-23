@@ -1,36 +1,35 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
-import { __ } from '@wordpress/i18n';
-
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
 import { useBlockProps } from '@wordpress/block-editor';
+import { useEffect } from '@wordpress/element';
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @param {Object}   props               Properties passed to the function.
- * @param {Object}   props.attributes    Available block attributes.
- * @param {Function} props.setAttributes Function that updates individual attributes.
- *
- * @return {Element} Element to render.
- */
-export default function Edit( { attributes, setAttributes } ) {
-	const blockProps = useBlockProps();
+export default function Edit({ attributes, setAttributes }) {
+    const { meals } = attributes;
 
-	return (
-		<p { ...blockProps }>
-			{ __( 'Swiggy Plugin – hello from the editor!', 'swiggy-plugin' ) }
-		</p>
-	);
+    useEffect(() => {
+        async function fetchMeals() {
+            const response = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian');
+            const data = await response.json();
+            setAttributes({ meals: data.meals });
+        }
+
+        fetchMeals();
+    }, []);
+
+    return (
+        <div {...useBlockProps()}>
+            <div className="food-menu">
+                <div className="food-items">
+                    {meals && meals.length > 0 ? (
+                        meals.map((meal, index) => (
+                            <div key={index} className="food-item">
+                                <h3>{meal.strMeal}</h3>
+                                <img src={meal.strMealThumb} alt={meal.strMeal} />
+                            </div>
+                        ))
+                    ) : (
+                        <p>Loading meals...</p>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
 }
