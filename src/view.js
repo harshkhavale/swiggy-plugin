@@ -2,40 +2,56 @@
  * WordPress dependencies
  */
 import { store, getContext } from "@wordpress/interactivity";
-store("create-block", {
+
+const { state } = store("create-block", {
   actions: {
-    init: async () => {
+    init: function* () {
       const context = getContext();
-      const response = await fetch(
-        "https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian"
-      );
-	 
-      const data = await response.json();
+      
+      try {
+        const response = yield fetch(
+          "https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian"
+        );
+        const data = yield response.json();
 
-      context.attributes.meals = data.meals;
-
+        context.mealsData = data.meals;
+      } catch (error) {
+        console.error("Error fetching meals:", error);
+      }
     },
 
     handleInputChange: (e) => {
       const inputValue = e.target.value;
       const context = getContext();
-      context.attributes.search = inputValue;
-      console.log("search:",inputValue);
+      
+      try {
+        context.searchText = inputValue;
+        console.log("search:", context.searchText);
+      } catch (error) {
+        console.error("Error updating search text:", error);
+      }
     },
-    loadMeals: async () => {
-      const context = getContext();
-
-      const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/search.php?s=${context.attributes.search}`
-      );
-      const data = await response.json();
-      context.attributes.meals = data.meals;
-      console.log(context.attributes.meals);
-    },
+    
   },
 
-  callbacks: {},
-});
+  callbacks: {
+    loadMeals: function* () {
+      const context = getContext();
 
-// www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata - search by meal
-// https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian - area
+      try {
+        const response = yield fetch(
+          `https://www.themealdb.com/api/json/v1/1/search.php?s=${context.searchText}`
+        );
+        const data = yield response.json();
+        console.log(data.meals);
+        console.log(context);
+        
+        context.mealsData = data.meals;
+        window.dispatchEvent(new Event('render-request'));
+
+      } catch (error) {
+        console.error("Error loading meals:", error);
+      }
+    },
+  },
+});

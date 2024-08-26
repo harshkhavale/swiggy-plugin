@@ -43,7 +43,8 @@
 
 .food-item img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
 }
 
@@ -92,7 +93,7 @@
     }
 }
 $primary-color: #ff7c11;
-$secondary-color: #2ecc71;
+$secondary-color: #d55303;
 $text-color: #333;
 $background-color: #f9f9f9;
 
@@ -138,7 +139,7 @@ $background-color: #f9f9f9;
     margin-right: 10px;
     outline: none;
     transition: border-color 0.3s ease;
-
+	background-color: #fff;
     &:focus {
       border-color: $secondary-color;
       box-shadow: 0 0 5px $primary-color;
@@ -164,4 +165,9 @@ $background-color: #f9f9f9;
       box-shadow: 0 0 5px $primary-color;
     }
   }
+}
+.header{
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
 }
