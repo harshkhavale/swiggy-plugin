@@ -12,6 +12,14 @@
 		"meals": {
 			"type": "array",
 			"default": []
+		},
+		"filter":{
+			"type": "string",
+            "default": "Indian"
+		},
+		"search": {
+			"type": "string",
+            "default": ""
 		}
 	},
 	"supports": {

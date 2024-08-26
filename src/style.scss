@@ -53,3 +53,115 @@
     font-size: 1.2em;
     color: #333;
 }
+
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    input[type="text"] {
+        padding: 10px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 300px;
+        font-size: 16px;
+        outline: none;
+        transition: border-color 0.3s ease;
+
+        &:focus {
+            border-color: #ff6600;
+        }
+    }
+
+    button {
+        padding: 10px 20px;
+        margin-left: 10px;
+        background-color: #ff6600;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #e65c00;
+        }
+    }
+}
+$primary-color: #ff7c11;
+$secondary-color: #2ecc71;
+$text-color: #333;
+$background-color: #f9f9f9;
+
+.area-filter {
+  margin-bottom: 20px;
+  label {
+    font-size: 16px;
+    color: $text-color;
+    margin-right: 10px;
+  }
+
+  select {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid $primary-color;
+    border-radius: 4px;
+    background-color: white;
+    color: $text-color;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      border-color: $secondary-color;
+    }
+
+    &:focus {
+      box-shadow: 0 0 5px $primary-color;
+    }
+  }
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  input[type="text"] {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid $primary-color;
+    border-radius: 4px;
+    flex-grow: 1;
+    margin-right: 10px;
+    outline: none;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: $secondary-color;
+      box-shadow: 0 0 5px $primary-color;
+    }
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: $primary-color;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $secondary-color;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 5px $primary-color;
+    }
+  }
+}
